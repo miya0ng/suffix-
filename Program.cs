@@ -12,6 +12,7 @@
 
 CustomStringSort test = new CustomStringSort(codes);
 
+test.SortElement();
 test.Print();
 public class CustomStringSort
 {
@@ -42,6 +43,7 @@ public class CustomStringSort
     public enum Element { PREFIX, NUMERIC, SUFFIX }
 
     public (string source, Element element) taggedSource;
+    public List<(string source, Element element)> taggedArray;
 
     public CustomStringSort(string[] source)
     {
@@ -49,15 +51,16 @@ public class CustomStringSort
         splitSource = new string[source.Length];
     }
 
-    public void Sort()
+    public void SortElement()
     {
-        for(int k = 0; k< source.Length; k++)
+        for (int k = 0; k < source.Length; k++)
         {
             splitSource = source[k].Split('_');
- 
+
             for (int i = 1; i < splitSource.Length; i++)
             {
                 taggedSource = (splitSource[i], Element.NUMERIC);
+                taggedArray.Insert(i, taggedSource);
             }
             foreach (char item in splitSource[splitSource.Length - 1])
             {
@@ -66,13 +69,14 @@ public class CustomStringSort
                     break;
                 }
                 taggedSource = (splitSource[splitSource.Length - 1], Element.SUFFIX);
+                taggedArray.///
             }
         }
     }
 
     public void Print()
     {
-        foreach(string item in splitSource)
+        foreach (string item in splitSource)
         {
             Console.WriteLine($"{item}");
         }
